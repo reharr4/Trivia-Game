@@ -52,3 +52,4 @@ $(document).ready(function(){
   	start(); // calls the start function
 });
 });
+
