@@ -19,7 +19,7 @@ $(document).ready(function(){
     }
     function timer(){
       number-- // decrements the timer by 1
-      $("#show-number").html("<h2>" + number + "</h2>" );
+      $("#show-time").html("<h2>" + number + "</h2>" );
       if (number === 0){
         stop(); // calls the stop function
       }
@@ -42,3 +42,13 @@ $(document).ready(function(){
     	number = 60;
     	start();
     }
+    function hideMe(e) {
+    	$(e).hide();
+    }
+    function showMe(e) {
+    	$(e).show();
+    }
+    //calling functions
+  	start(); // calls the start function
+});
+});
