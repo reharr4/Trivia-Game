@@ -1,0 +1,27 @@
+body {
+    background-image: url("../images/rainbow.jpg");
+}
+
+#masthead {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+.rules {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+.question {
+    text-align: center;
+    font-size: 25px;
+}
+.answers {
+    text-align: center;
+}
