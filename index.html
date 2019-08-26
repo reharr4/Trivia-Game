@@ -5,86 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
     <title>This, That, or The Other</title>
-    <link rel="stylesheet" type="text/css" href="assets/CSS/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/CSS/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+
+
 </head>
 
 <body>
-    <header id="masthead">
-        <div class="container">
+    <div id="wrapper">
             <h1>This, That, or the Other</h1>
-        </div>
-    </header>
-    <div id="main-container" class="container">
-        <section class="main-section">
+    </div>
+    <div id="sub-wrapper">
+        <div id="quiz">
             <h2 class="rules">The Rules</h2>
             <p class="rules">In this game, all you need to do is identify which of the three categories the listed item
-                belongs to.</p>
-            <p>Today's categories are: Indie Bands, Foreign Films, or Dungeons & Dragons Monsters.</p>
-            <p>There are 8 questions. You have 60 seconds to answer all 8.</p>
+                belongs to: Indie Bands, Foreign Films, or D&D Monsters</p>
+            <p>There are 8 questions. You have 120 seconds to answer all 8.</p>
             <h2>
-                <button type="button" class="btn btn-primary" id="start-button">Start</button>
+                <button type="button" class="btn btn-primary" id="start">Start</button>
             </h2>
+        </div>
+    </div>
 
             <!-- timer -->
             <div id="show-time"></div>
-            <!-- question 1 -->
-            <p class="question">Whale Rider</p>
-            <ul class="answers">
-                <input type="radio" name="q1" value="a" id="q1a"><label for="q1a">Indie Band</label><br />
-                <input type="radio" name="q1" value="b" id="q1b"><label for="q1b">Foreign Film</label><br />
-                <input type="radio" name="q1" value="c" id="q1c"><label for="q1c">D&D Monster</label><br />
-            </ul>
-            <!-- question 2 -->
-            <p class="question">Sparklehorse</p>
-            <ul class="answers">
-                <input type="radio" name="q2" value="a" id="q2a"><label for="q2a">Indie Band</label><br />
-                <input type="radio" name="q2" value="b" id="q2b"><label for="q2b">Foreign Film</label><br />
-                <input type="radio" name="q2" value="c" id="q2c"><label for="q2c">D&D Monster</label><br />
-            </ul>
-            <!-- question 3 -->
-            <p class="question">Ooze Mephit</p>
-            <ul class="answers">
-                <input type="radio" name="q3" value="a" id="q3a"><label for="q3a">Indie Band</label><br />
-                <input type="radio" name="q3" value="b" id="q3b"><label for="q3b">Foreign Film</label><br />
-                <input type="radio" name="q3" value="c" id="q3c"><label for="q3c">D&D Monster</label><br />
-            </ul>
-            <!-- question 4 -->
-            <p class="question">Shambling Mound</p>
-            <ul class="answers">
-                <input type="radio" name="q4" value="a" id="q4a"><label for="q4a">Indie Band</label><br />
-                <input type="radio" name="q4" value="b" id="q4b"><label for="q4b">Foreign Film</label><br />
-                <input type="radio" name="q4" value="c" id="q4c"><label for="q4c">D&D Monster</label><br />
-            </ul>
-            <!-- question 5 -->
-            <p class="question">Imagine Dragons</p>
-            <ul class="answers">
-                <input type="radio" name="q5" value="a" id="q5a"><label for="q5a">Indie Band</label><br />
-                <input type="radio" name="q5" value="b" id="q5b"><label for="q5b">Foreign Film</label><br />
-                <input type="radio" name="q5" value="c" id="q5c"><label for="q5c">D&D Monster</label><br />
-            </ul>
-            <!-- question 6 -->
-            <p class="question">The Spirit of the Beehive</p>
-            <ul class="answers">
-                <input type="radio" name="q6" value="a" id="q6a"><label for="q6a">Indie Band</label><br />
-                <input type="radio" name="q6" value="b" id="q6b"><label for="q6b">Foreign Film</label><br />
-                <input type="radio" name="q6" value="c" id="q6c"><label for="q6c">D&D Monster</label><br />
-            </ul>
-            <!-- question 7 -->
-            <p class="question">Black Pudding</p>
-            <ul class="answers">
-                <input type="radio" name="q7" value="a" id="q7a"><label for="q7a">Indie Band</label><br />
-                <input type="radio" name="q7" value="b" id="q7b"><label for="q7b">Foreign Film</label><br />
-                <input type="radio" name="q7" value="c" id="q7c"><label for="q7c">D&D Monster</label><br />
-            </ul>
-            <!-- question 8 -->
-            <p class="question">Brain in a Jar</p>
-            <ul class="answers">
-                <input type="radio" name="q8" value="a" id="q8a"><label for="q8a">Indie Band</label><br />
-                <input type="radio" name="q8" value="b" id="q8b"><label for="q8b">Foreign Film</label><br />
-                <input type="radio" name="q8" value="c" id="q8c"><label for="q8c">D&D Monster</label><br />
-            </ul>
+         
 
             <!-- Submit Button -->
             <h2>
@@ -92,21 +40,12 @@
             </h2>
             <!-- Results -->
             <div id="results">
-                <!-- <div id="category1">
-                        <p><strong>Question 1:</strong> The correct answer is the <strong>Answer 1</strong>.</p>
-                        </div> -->
+                
             </div>
             <h2>
                 <button type="button" class="btn btn-primary" id="restart">Play Again</button>
             </h2>
-        </section>
-    </div>
-    </div>
-    <!-- JavaScript File & jQuery Lib -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
-    <script type="text/javascript" src="assets/javascript/app.js"></script>
-    <!-- <script type="text/javascript" src="" -->
-
+    
 </body>
 
 </html>
