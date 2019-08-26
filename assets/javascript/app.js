@@ -5,45 +5,45 @@ var questions = [
   {
     question: "Whale Rider",
     answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: ""
+    correctAnswer: "Foreign Film"
   },
   {
     question: "Sparklehorse",
     answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: ""
+    correctAnswer: "Indie Band"
   },
   {
     question: "Ooze Mephit",
     answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: ""
+    correctAnswer: "D&D Monster"
   },
   {
     question: "Shambling Mound",
     answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: ""
+    correctAnswer: "D&D Monster"
   },
   {
     question: "Imagine Dragons",
     answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: ""
+    correctAnswer: "Indie Band"
   },
   {
     question: "The Spirit of the Beehive",
     answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: ""
+    correctAnswer: "Foreign Film"
   },
   {
     question: "Black Pudding",
     answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: ""
+    correctAnswer: "D&D Monster"
   },
   {
     question: "Brain in a Jar",
     answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: ""
+    correctAnswer: "D&D Monster"
   }
 ];
-// declaring the value for the timer to 60 seconds
+// declaring the value for the timer
 var timer;
 
 var game = {
@@ -53,60 +53,99 @@ var game = {
 
   countdown: function () {
     game.counter--;
-    $("#counter-number").html(game.counter);
+    $("#counter-number").text(game.counter);
     if (game.counter === 0) {
       console.log("TIME'S UP");
-      game.done();
+      game.timeUp();
     }
   },
 
-  start: function () {
+  loadQuestion: function () {
+
     timer = setInterval(game.countdown, 1000);
 
-    $("#sub-wrapper").prepend(
-      "<h2>Time Remaining: <span id='counter-number'>120</span> Seconds</h2>"
-    );
-
-    $("#start").remove();
-
-    for (var i = 0; i < questions.length; i++) {
-      card.append("<h2>" + questons[i].question + "</h2>");
-      for (var j = 0; j < questions[i].answers.length; j++) {
-        card.append("<input type='radio' name=question-" + i + "'value='" + questons[i].answer[j] + "''>" + question[i].answers[j]);
+    card.html("<h2>" + questions[this.currentQuestion].question + "</h2>");
+    
+    for (var i = 0; i < questions[this.currentQuestion].answers.length; i++) {
+      card.append("<button class='answer-button' id='button' data-name='" + questions[this.currentQuestion].answers[i] + "'>" + questions[this.currentQuestion].answers[i] + "</button>");
       }
-    }
+    },
 
-    card.append("<button id='done'>Done</button>");
-  },
+    nextQuestion: function() {
+      game.counter = countStartNumber;
+      $("#counter-number").text(game.counter);
+      game.currentQuestion++;
+      game.loadQuestion();
+    },
 
-  done: function () {
-    var inputs = card.children("input: checked");
-    for (var i = 0; i < inputs.length; i++) {
-      if ($(inputs[i]).val() === questions[i].correctAnswer) {
-        game.correct++;
+    timeUp: function () {
+
+      clearInterval(timer);
+
+      $("#counter-number").html(game - counter);
+      card.html("<h2>All Done!</h2>");
+      card.append("<h3>Correct Answers: " + questons[this.currentQuestion].correctAnswer + "</h3>");
+
+      if (game.currentQuestion === questions.length - 1) {
+        setTimeout(game.results, 3 * 1000);
       } else {
-        game.incorrect++;
+        setTimeout(game.nextQuestion, 3 * 1000);
       }
+    },
+
+    results: function() {
+      clearInterval(timer);
+      card.html("<h2>All done!</h2>");
+
+      $("#counter-number").text(game.counter);
+
+      card.append("<h3>Correct Answers: " + game.correct + "</h3>");
+      card.append("<h3>Incorrect Answers: " + game.incorrect + "</h3>");
+      card.append("<h3>Unanswered: " + (questions.length - (game.incorrect + game.correct)) + "</h3>");
+      card.append("<br><button id='start-over'>Start Over?</button>");
+    },
+
+    clicked: function(e) {
+      clearInterval(timer);
+      if ($(e.target).attr("data-name") === questions[this.currentQuestion].correctAnswer) {
+        this.answeredCorrectly();
+      } else {
+        this.answeredIncorrectly();
+      }
+    },
+
+    answeredIncorrectly: function() {
+      game.incorrect++;
+
+      clearInterval(timer);
+
+      card.html("<h2>Incorrect</h2>");
+      card.append("<h3>The correct answer is: " + questions[game.currentQuestion].correctAnswer + "</h3>");
+
+      if (game.currentQuestion === questions.length - 1) {
+        setTimeout(game.results, 3 * 1000);
+      } else {
+        setTimeout(game.nextQuestion, 3 * 1000);
+      }
+    },
+
+    reset: function() {
+      this.currentQuestion = 0;
+      this.counter = countStartNumber;
+      this.correct = 0;
+      this.incorrect = 0;
+      this.loadQuestion();
     }
-    this.result();
-  },
+  };
 
-  result: function () {
-    clearInterval(timer);
-
-    $("#sub-wrapper h2").remove();
-
-    card.html("<h2>All Done!</h2>");
-    card.append("<h3>Correct Answers: " + this.correct + "</h3>");
-    card.append("<h3>Incorrect Answers: " + this.incorrect + "</h3>");
-  }
-};
-
-//calling functions
-$(document).on("click", "#start", function () {
-  game.start();
-});
-$(document).on("click", "#done", function () {
-  game.done();
-});
-
+  //calling functions
+  $(document).on("click", "#start-over", function () {
+    game.reset();
+  });
+  $(document).on("click", ".answer-button", function (e) {
+    game.clicked(e);
+  });
+  $(document).on("click", "#start", function () {
+    $("#sub-wrapper").prepend("<h2>Time Remaining: <span id='counter-number'>30</span> Seconds</h2>");
+    game.loadQuestion();
+  });
