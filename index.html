@@ -5,28 +5,83 @@
     <meta charset="UTF-8">
     <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
     <title>This, That, or The Other</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/CSS/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/CSS/style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
-    <script type="text/javascript" src="assets/javascript/app.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
-    <div id="wrapper">
-        <h1>This, That, or the Other</h1>
-        <div id="sub-wrapper">
-            <div id="quiz">
-                <h2 class="rules">The Rules</h2>
-                <p class="rules">In this game, all you need to do is identify which of the three categories the listed
-                    item
-                    belongs to: Indie Bands, Foreign Films, or D&D Monsters</p>
-                <p>You have 120 seconds to answer all 8 questions.</p>
-                <h2><button type="button" class="btn btn-primary" id="start">Start</button></h2>
-            </div>
+    <header class="container">
+        <div class="jumbotron bg-light" id="header">
+            <h1>This, That, or the Other</h1>
         </div>
+    </header>
+    <div id="main-container" class="container">
+        <!-- <section class="main-section"> -->
+        <h2>The Rules</h2>
+        <p>In this game, all you need to do is identify which of the three categories the listed item
+            belongs to: Indie Bands, Foreign Films, or Dungeons & Dragons Monsters.</p>
+
+        <body>
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-4">
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-body bg-light">
+                                        <h4 id="time-left">
+                                            Time remaining: 10 seconds
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="content">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="quiz">
+                                <form>
+                                    <div class="form-group">
+                                        <div class="radio">
+                                            <h4 class="questionX"></h4>
+                                            <div id="responses">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <div id="submit-div"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-md-1">
+                </div> -->
+            </div>
     </div>
+    <!-- JavaScript File & jQuery Lib -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
 
 </body>
 
