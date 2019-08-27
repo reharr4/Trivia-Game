@@ -2,26 +2,20 @@ body {
     background-image: url("../images/rainbow.jpg");
 }
 
-#masthead {
+.container,
+.questionX,
+#quiz {
     text-align: center;
+    align-content: center
+}
+.radio {
+    display: inline-block
+}
+#submit {
+    align-content: center;
+    text-align: center;
+    display: inline-block;
+    
 }
 
-h2 {
-    text-align: center;
-}
 
-.rules {
-    text-align: center;
-}
-
-p {
-    text-align: center;
-}
-
-.question {
-    text-align: center;
-    font-size: 25px;
-}
-.answers {
-    text-align: center;
-}
