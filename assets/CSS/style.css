@@ -1,12 +1,15 @@
 body {
-    background-image: url("../images/rainbow.jpg");
+    background-image: url("../images/congruent_pentagon.png");
+
 }
 
 .container,
 .questionX,
 #quiz {
     text-align: center;
-    align-content: center
+    align-content: center;
+    font-family: 'Abril Fatface', cursive;
+
 }
 .radio {
     display: inline-block
@@ -15,7 +18,9 @@ body {
     align-content: center;
     text-align: center;
     display: inline-block;
-    
+}
+#time-left {
+    background-color: rgb(247, 183, 23)
 }
 
 
