@@ -63,7 +63,7 @@ $(document).ready(function () {
 
     // Display start page
     function displayStart() {
-      $("#content").append("<button class='btn btn-light btn-lg' id='start-button'>" + "Start" + "</button>");
+      $("#content").append("<button class='btn btn-warning btn-lg' id='start-button'>" + "Start" + "</button>");
       // Button starts the game
       $("#start-button").on("click", function (start) {
         start.preventDefault();
@@ -91,7 +91,7 @@ $(document).ready(function () {
       // call quiz form function
       createRadios();
       // create submit button
-      $("#submit-div").append("<button type='submit' class='btn btn-light' id='submit'>" + "Answer" + '</button');
+      $("#submit-div").append("<button type='submit' class='btn btn-warning' id='submit'>" + "Answer" + '</button');
       runTimer();
       submitAnswer();
     };
@@ -237,7 +237,7 @@ $(document).ready(function () {
     function displayEnd() {
       clearQuestion();
       // shows the final score
-      $("#content").append("<h2>" + "Correct answers: " + correct + "</h2> <br> <h2>" + "Incorrect answers: " + incorrect + "</h2> <br> <h2> <button class='btn btn-primary btn-lg' id='restart-button'>" + "Play Again" + "</button");
+      $("#content").append("<h2>" + "Correct answers: " + correct + "</h2> <br> <h2>" + "Incorrect answers: " + incorrect + "</h2> <br> <h2> <button class='btn btn-warning btn-lg' id='restart-button'>" + "Play Again" + "</button");
 
       // restarts game
       $("#restart-button").on("click", function (restart) {
