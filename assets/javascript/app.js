@@ -1,151 +1,256 @@
-var card = $("#quiz");
+$(document).ready(function () {
 
-// questions
-var questions = [
-  {
-    question: "Whale Rider",
-    answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: "Foreign Film"
-  },
-  {
-    question: "Sparklehorse",
-    answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: "Indie Band"
-  },
-  {
-    question: "Ooze Mephit",
-    answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: "D&D Monster"
-  },
-  {
-    question: "Shambling Mound",
-    answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: "D&D Monster"
-  },
-  {
-    question: "Imagine Dragons",
-    answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: "Indie Band"
-  },
-  {
-    question: "The Spirit of the Beehive",
-    answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: "Foreign Film"
-  },
-  {
-    question: "Black Pudding",
-    answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: "D&D Monster"
-  },
-  {
-    question: "Brain in a Jar",
-    answers: ["Indie Band", "Foreign Film", "D&D Monster"],
-    correctAnswer: "D&D Monster"
-  }
-];
-// declaring the value for the timer
-var timer;
+    // VARIABLES //
 
-var game = {
-  correct: 0,
-  incorrect: 0,
-  counter: 120,
+    var questionCounter = 0;
 
-  countdown: function () {
-    game.counter--;
-    $("#counter-number").text(game.counter);
-    if (game.counter === 0) {
-      console.log("TIME'S UP");
-      game.timeUp();
-    }
-  },
+    var answerTimeout = 3000;
 
-  loadQuestion: function () {
+    var correct = 0;
 
-    timer = setInterval(game.countdown, 1000);
+    var incorrect = 0;
 
-    card.html("<h2>" + questions[this.currentQuestion].question + "</h2>");
-    
-    for (var i = 0; i < questions[this.currentQuestion].answers.length; i++) {
-      card.append("<button class='answer-button' id='button' data-name='" + questions[this.currentQuestion].answers[i] + "'>" + questions[this.currentQuestion].answers[i] + "</button>");
+    var userAnswer = [];
+
+    var questions = [
+      {
+        question: "Whale Rider",
+        choices: ["Indie Band", "Foreign Film", "D&D Monster"],
+        choicesAnswer: 1
+      },
+      {
+        question: "Sparklehorse",
+        choices: ["Indie Band", "Foreign Film", "D&D Monster"],
+        choicesAnswer: 0
+      },
+      {
+        question: "Ooze Mephit",
+        choices: ["Indie Band", "Foreign Film", "D&D Monster"],
+        choicesAnswer: 2
+      },
+      {
+        question: "Imagine Dragons",
+        choices: ["Indie Band", "Foreign Film", "D&D Monster"],
+        choicesAnswer: 0
+      },
+      {
+        question: "The Spirit of the Beehive",
+        choices: ["Indie Band", "Foreign Film", "D&D Monster"],
+        choicesAnswer: 1
+      },
+      {
+        question: "Dogtooth",
+        choices: ["Indie Band", "Foreign Film", "D&D Monster"],
+        choicesAnswer: 1
+      },
+      {
+        question: "Lizardfolk",
+        choices: ["Indie Band", "Foreign Film", "D&D Monster"],
+        choicesAnswer: 2
+      },
+      {
+        question: "Babybird",
+        choices: ["Indie Band", "Foreign Film", "D&D Monster"],
+        choicesAnswer: 0
+      },
+      {
+        question: "Shambling Mound",
+        choices: ["Indie Band", "Foreign Film", "D&D Monster"],
+        choicesAnswer: 2
+      }];
+
+    // FUNCTIONS //
+
+    // Display start page
+    function displayStart() {
+      $("#content").append("<button class='btn btn-light btn-lg' id='start-button'>" + "Start" + "</button>");
+      // Button starts the game
+      $("#start-button").on("click", function (start) {
+        start.preventDefault();
+        firstQuestion();
+        resetTimer();
+        runTimer();
+      });
+    };
+
+    // Display the first question page
+    function firstQuestion() {
+      var start = $("#content");
+      start.empty();
+      displayQuestion();
+    };
+
+    // Display the current question page
+    function displayQuestion() {
+      // clear previous quiz form and timer
+      clearQuestion();
+      stopTimer();
+      resetTimer();
+      // display question
+      $(".questionX").html(questions[questionCounter].question);
+      // call quiz form function
+      createRadios();
+      // create submit button
+      $("#submit-div").append("<button type='submit' class='btn btn-light' id='submit'>" + "Answer" + '</button');
+      runTimer();
+      submitAnswer();
+    };
+
+    // Submit user answers
+    function submitAnswer() {
+      $("#submit").on("click", function (submit) {
+        submit.preventDefault();
+        userAnswer.length = 0;
+
+
+        // record the answer
+        var userSelection = $("#responses input:radio[name=optionRadios]:checked").val();
+        userAnswer.push(userSelection);
+        console.log(userAnswer);
+        nextQuestion();
+      });
+    };
+
+    // Timer functions
+    var timeLeft = 10;
+    var increment;
+
+    function runTimer() {
+      increment = setInterval(decrement, 1000);
+    };
+
+    function decrement() {
+      timeLeft--;
+      $("#time-left").text("Time remaining: " + timeLeft + " seconds");
+      if (timeLeft == 0) {
+        stopTimer();
+        userAnswer.length = 0;
+        // record 
+        var userSelection = $("#responses input:radio[name=optionsRadios]:checked").val();
+        userAnswer.push(userSelection);
+        console.log(userAnswer);
+        nextQuestion();
+      };
+    };
+
+    // Remove timer for the answer review
+    function displayReview() {
+      $("#time-left").text("Judges...");
+    };
+
+    function resetTimer() {
+      clearInterval(increment);
+      timeLeft = 10;
+      $("#time-left").text("Time remaining: " + timeLeft + " seconds");
+    };
+
+    function stopTimer() {
+      clearInterval(increment);
+      clearTimeout(increment);
+    };
+
+    // Change to the next question or end the quiz
+    function nextQuestion() {
+      // check for correct answer
+      checkQuestion();
+
+      questionCounter++;
+      // either end the quiz or display next question
+      if (questionCounter === questions.length) {
+        setTimeout(displayEnd, answerTimeout);
       }
-    },
 
-    nextQuestion: function() {
-      game.counter = countStartNumber;
-      $("#counter-number").text(game.counter);
-      game.currentQuestion++;
-      game.loadQuestion();
-    },
+      else {
+        setTimeout(displayQuestion, answerTimeout);
+      };
+    };
 
-    timeUp: function () {
+    // Check user choice with the correct answer for each question
+    function checkQuestion() {
+      // clear current quiz form
+      clearQuestion();
+      stopTimer();
 
-      clearInterval(timer);
+      // find correct answer to current question
+      var correctAnswer = questions[questionCounter].choicesAnswer;
 
-      $("#counter-number").html(game - counter);
-      card.html("<h2>All Done!</h2>");
-      card.append("<h3>Correct Answers: " + questons[this.currentQuestion].correctAnswer + "</h3>");
-
-      if (game.currentQuestion === questions.length - 1) {
-        setTimeout(game.results, 3 * 1000);
-      } else {
-        setTimeout(game.nextQuestion, 3 * 1000);
+      // compare choice with answer
+      if (userAnswer[0] == questions[questionCounter].choicesAnswer) {
+        $("#content").append("<h2>" + "That's correct!" + "</h2>");
+        // add to the correct choice counter
+        correct++;
+        displayReview();
       }
-    },
 
-    results: function() {
-      clearInterval(timer);
-      card.html("<h2>All done!</h2>");
-
-      $("#counter-number").text(game.counter);
-
-      card.append("<h3>Correct Answers: " + game.correct + "</h3>");
-      card.append("<h3>Incorrect Answers: " + game.incorrect + "</h3>");
-      card.append("<h3>Unanswered: " + (questions.length - (game.incorrect + game.correct)) + "</h3>");
-      card.append("<br><button id='start-over'>Start Over?</button>");
-    },
-
-    clicked: function(e) {
-      clearInterval(timer);
-      if ($(e.target).attr("data-name") === questions[this.currentQuestion].correctAnswer) {
-        this.answeredCorrectly();
-      } else {
-        this.answeredIncorrectly();
+      else if (userAnswer[0] === undefined) {
+        $("#content").append("<h2>" + "Time's up!" + "</h2> <br> <h2>" + "The correct answer was: " + questions[questionCounter].choices[correctAnswer] + "</h2>");
+        displayReview();
       }
-    },
 
-    answeredIncorrectly: function() {
-      game.incorrect++;
+      else {
+        $("#content").append("<h2>" + "Oooh. Sorry." + "</h2> <br> <h2>" + "The correct answer was: " + questions[questionCounter].choices[correctAnswer] + "</h2>");
+        // add to the incorrect choice counter
+        incorrect++;
+        displayReview();
+      };
+    };
 
-      clearInterval(timer);
+    // Clear quiz to prep for next part of game
+    function clearQuestion() {
+      var questionDiv = $(".questionX");
+      questionDiv.empty();
 
-      card.html("<h2>Incorrect</h2>");
-      card.append("<h3>The correct answer is: " + questions[game.currentQuestion].correctAnswer + "</h3>");
+      var responseDiv = $("#responses");
+      responseDiv.empty();
 
-      if (game.currentQuestion === questions.length - 1) {
-        setTimeout(game.results, 3 * 1000);
-      } else {
-        setTimeout(game.nextQuestion, 3 * 1000);
-      }
-    },
+      var submitDiv = $("#submit-div");
+      submitDiv.empty();
 
-    reset: function() {
-      this.currentQuestion = 0;
-      this.counter = countStartNumber;
-      this.correct = 0;
-      this.incorrect = 0;
-      this.loadQuestion();
-    }
-  };
+      var contentDiv = $("#content");
+      contentDiv.empty();
 
-  //calling functions
-  $(document).on("click", "#start-over", function () {
-    game.reset();
+      stopTimer();
+    };
+
+    // Display quiz form
+    function createRadios() {
+      var responseOptions = $("#responses");
+      // empty array from previous question
+      responseOptions.empty();
+
+      // create multiple choice input
+      for (var i = 0; i < questions[questionCounter].choices.length; i++) {
+        responseOptions.append("<input type='radio' name='optionRadios' value='" + [i] + "' style='float:left'><div class='options' style='font-weight:bold'>" + '&nbsp &nbsp' + questions[questionCounter].choices[i] + "</div></input>");
+      };
+    };
+
+    // Reset variables for end of game
+    function reset() {
+      questionCounter = 0;
+      correct = 0;
+      incorrect = 0;
+      userAnswer = [];
+      resetTimer();
+    };
+
+    // Display end of game
+    function displayEnd() {
+      clearQuestion();
+      // shows the final score
+      $("#content").append("<h2>" + "Correct answers: " + correct + "</h2> <br> <h2>" + "Incorrect answers: " + incorrect + "</h2> <br> <h2> <button class='btn btn-primary btn-lg' id='restart-button'>" + "Play Again" + "</button");
+
+      // restarts game
+      $("#restart-button").on("click", function (restart) {
+        restart.preventDefault();
+        // show first question
+        reset();
+        clearQuestion();
+        displayStart();
+      });
+    };
+
+    // Starts game on page load
+    displayStart();
   });
-  $(document).on("click", ".answer-button", function (e) {
-    game.clicked(e);
-  });
-  $(document).on("click", "#start", function () {
-    $("#sub-wrapper").prepend("<h2>Time Remaining: <span id='counter-number'>30</span> Seconds</h2>");
-    game.loadQuestion();
-  });
+
+  
